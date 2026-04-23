@@ -23,6 +23,26 @@ public class Lesson {
         this.memberIds = new HashSet<>();
     }
     
+    public boolean addBooking(String memberId) {
+    if (memberIds.size() < MAX_CAPACITY && !memberIds.contains(memberId)) {
+        memberIds.add(memberId);
+        return true;
+    }
+    return false;
+}
+
+    public boolean removeBooking(String memberId) {
+        return memberIds.remove(memberId);
+    }
+
+    public int getBookingsCount() {
+        return memberIds.size();
+    }
+
+    public boolean hasSpace() {
+        return memberIds.size() < MAX_CAPACITY;
+    }
+    
     public int getMaxCapacity() { return MAX_CAPACITY; }
     public Set<String> getMemberIds() { return memberIds; }
     
@@ -33,5 +53,3 @@ public class Lesson {
     public TimeSlot getTimeSlot() { return timeSlot; }
     public LocalDate getDate() { return date; }
 }
-
-
