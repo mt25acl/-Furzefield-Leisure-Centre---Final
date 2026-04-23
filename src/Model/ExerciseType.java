@@ -1,4 +1,4 @@
-// src/model/ExerciseType.java
+
 package model;
 
 public enum ExerciseType {
