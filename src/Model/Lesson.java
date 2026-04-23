@@ -1,7 +1,9 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Lesson {
@@ -23,6 +25,7 @@ public class Lesson {
         this.memberIds = new HashSet<>();
     }
     
+    
     public boolean addBooking(String memberId) {
     if (memberIds.size() < MAX_CAPACITY && !memberIds.contains(memberId)) {
         memberIds.add(memberId);
@@ -42,6 +45,44 @@ public class Lesson {
     public boolean hasSpace() {
         return memberIds.size() < MAX_CAPACITY;
     }
+    
+    
+    // src/model/Lesson.java - add reviews list
+
+private List<Review> reviews;
+
+// In constructor:
+this.reviews = new ArrayList<>();
+
+// Add methods:
+public void addReview(Review review) {
+    reviews.add(review);
+}
+
+public List<Review> getReviews() {
+    return new ArrayList<>(reviews);
+}
+
+public double getAverageRating() {
+    if (reviews.isEmpty()) return 0.0;
+    int sum = 0;
+    for (Review r : reviews) {
+        sum += r.getRating();
+    }
+    return (double) sum / reviews.size();
+}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     public int getMaxCapacity() { return MAX_CAPACITY; }
     public Set<String> getMemberIds() { return memberIds; }
