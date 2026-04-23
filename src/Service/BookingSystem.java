@@ -20,7 +20,7 @@ import java.util.*;
     return member.bookLesson(lessonId, lesson, timetable.getAllLessons());
 }
 
-   public boolean cancelBooking(String memberId, String lessonId) {
+    public boolean cancelBooking(String memberId, String lessonId) {
     Member member = members.get(memberId);
     Lesson lesson = timetable.getLesson(lessonId);
     
@@ -36,19 +36,31 @@ import java.util.*;
         if (bookLesson(memberId, newLessonId)) {
             return true;
         }
-        // Rollback
+        
         bookLesson(memberId, oldLessonId);
         return false;
     }
     return false;
 }
     
+ 
+
+public void markAttendance(String memberId, String lessonId) {
+    Member member = members.get(memberId);
+    if (member != null) {
+        member.attendLesson(lessonId);
+    }
+}
+
+public void addReview(String memberId, String lessonId, int rating, String comment) {
+    Member member = members.get(memberId);
+    Lesson lesson = timetable.getLesson(lessonId);
     
-    
-    
-    
-    
-    
+    if (member != null && lesson != null) {
+        member.addReview(lessonId, rating, comment, lesson);
+    }
+}
+
     
     public BookingSystem(Timetable timetable) {
         this.timetable = timetable;
