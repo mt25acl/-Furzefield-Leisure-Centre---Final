@@ -1,0 +1,10 @@
+// src/model/ExerciseType.java
+package model;
+
+public enum ExerciseType {
+    YOGA,
+    ZUMBA,
+    AQUACISE,
+    BOX_FIT,
+    BODY_BLITZ
+}
