@@ -11,6 +11,40 @@ import java.time.LocalDate;
     
     
     
+    
+
+    public List<Lesson> getLessonsByDay(Day day) {
+     List<Lesson> result = new ArrayList<>();
+    for (Lesson lesson : allLessons) {
+        if (lesson.getDay() == day) {
+            result.add(lesson);
+        }
+    }
+    return result;
+}
+
+    public List<Lesson> getLessonsByExercise(ExerciseType exercise) {
+     List<Lesson> result = new ArrayList<>();
+    for (Lesson lesson : allLessons) {
+        if (lesson.getExerciseType() == exercise) {
+            result.add(lesson);
+        }
+    }
+    return result;
+}
+
+    public List<Lesson> getLessonsByDate(LocalDate date) {
+     List<Lesson> result = new ArrayList<>();
+    for (Lesson lesson : allLessons) {
+        if (lesson.getDate().equals(date)) {
+            result.add(lesson);
+        }
+    }
+    return result;
+}
+    
+    
+    
     public void generateTimetable(int numberOfWeekends, List<ExerciseType> exerciseTypes) {
     LocalDate startDate = LocalDate.of(2026, 4, 25); // First Saturday
     
