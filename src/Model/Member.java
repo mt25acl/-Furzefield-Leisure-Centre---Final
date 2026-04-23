@@ -1,4 +1,3 @@
-
 package model;
 
 import java.util.ArrayList;
@@ -45,13 +44,13 @@ public class Member {
         return false;
     }
     
-    // Check time conflict
+   
     for (String bookedId : bookedLessonIds) {
         for (Lesson lesson : allLessons) {
             if (lesson.getLessonId().equals(bookedId)) {
                 if (lesson.getDate().equals(newLesson.getDate()) && 
                     lesson.getTimeSlot() == newLesson.getTimeSlot()) {
-                    return false;  // Time conflict!
+                    return false;
                 }
             }
         }
