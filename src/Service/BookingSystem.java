@@ -78,4 +78,8 @@ public void addReview(String memberId, String lessonId, int rating, String comme
     public List<Member> getAllMembers() {
         return new ArrayList<>(members.values());
     }
+
+    Object getTimetable() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

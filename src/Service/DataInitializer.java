@@ -1,4 +1,4 @@
-
+// src/service/DataInitializer.java
 package service;
 
 import model.*;
@@ -11,6 +11,39 @@ public class DataInitializer {
         this.bookingSystem = bookingSystem;
     }
     
+   
+    
+
+public void createSampleReviews() {
+    String[] comments = {
+        "Great class!", "Loved it", "Good workout",
+        "Excellent", "Not bad", "Fantastic instructor",
+        "Will come again", "Best class ever", "So-so",
+        "Amazing energy", "Very professional"
+    };
+    
+    Random random = new Random();
+    List<Member> members = bookingSystem.getAllMembers();
+    int reviewCount = 0;
+    
+    for (Member member : members) {
+        for (String lessonId : member.getBookedLessonIds()) {
+            if (reviewCount >= 20) break;
+            
+            // 70% chance to review
+            if (random.nextDouble() < 0.7) {
+                bookingSystem.markAttendance(member.getMemberId(), lessonId);
+                int rating = random.nextInt(5) + 1;
+                String comment = comments[random.nextInt(comments.length)];
+                bookingSystem.addReview(member.getMemberId(), lessonId, rating, comment);
+                reviewCount++;
+            }
+        }
+        if (reviewCount >= 20) break;
+    }
+    
+    System.out.println("Created " + reviewCount + " reviews");
+}
     
     public void createMembers() {
         String[] names = {
