@@ -43,7 +43,7 @@ import java.util.*;
     return false;
 }
     
- 
+
 
 public void markAttendance(String memberId, String lessonId) {
     Member member = members.get(memberId);

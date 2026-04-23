@@ -1,10 +1,7 @@
 package model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Lesson {
     private String lessonId;
@@ -13,7 +10,7 @@ public class Lesson {
     private TimeSlot timeSlot;
     private LocalDate date;
     private final int MAX_CAPACITY = 4;
-    private Set<String> memberIds; 
+    private Set<String> memberIds;
     private List<Review> reviews;
     
     public Lesson(String lessonId, ExerciseType exerciseType, Day day, 
@@ -28,25 +25,29 @@ public class Lesson {
     }
     
     public boolean addBooking(String memberId) {
-    if (memberIds.size() < MAX_CAPACITY && !memberIds.contains(memberId)) {
-        memberIds.add(memberId);
-        return true;
+        if (memberIds.size() < MAX_CAPACITY && !memberIds.contains(memberId)) {
+            memberIds.add(memberId);
+            return true;
+        }
+        return false;
     }
-    return false;
-}
-
+    
     public boolean removeBooking(String memberId) {
         return memberIds.remove(memberId);
     }
     
-     public void addReview(Review review) {
+    public void addReview(Review review) {
         reviews.add(review);
     }
-
-    public List<Review> getReviews() {
-        return new ArrayList<>(reviews);
+    
+    public int getBookingsCount() {
+        return memberIds.size();
     }
-
+    
+    public boolean hasSpace() {
+        return memberIds.size() < MAX_CAPACITY;
+    }
+    
     public double getAverageRating() {
         if (reviews.isEmpty()) return 0.0;
         int sum = 0;
@@ -55,23 +56,21 @@ public class Lesson {
         }
         return (double) sum / reviews.size();
     }
-
-    public int getBookingsCount() {
-        return memberIds.size();
-    }
-
-    public boolean hasSpace() {
-        return memberIds.size() < MAX_CAPACITY;
-    }
     
-    
-    public int getMaxCapacity() { return MAX_CAPACITY; }
-    public Set<String> getMemberIds() { return memberIds; }
-    
-    
+    // Getters
     public String getLessonId() { return lessonId; }
     public ExerciseType getExerciseType() { return exerciseType; }
     public Day getDay() { return day; }
     public TimeSlot getTimeSlot() { return timeSlot; }
     public LocalDate getDate() { return date; }
+    public int getMaxCapacity() { return MAX_CAPACITY; }
+    public Set<String> getMemberIds() { return new HashSet<>(memberIds); }
+    public List<Review> getReviews() { return new ArrayList<>(reviews); }
+    
+    @Override
+    public String toString() {
+        return String.format("%s %s %s: %d/4 booked, rating: %.1f",
+            date, timeSlot.getDisplayName(), exerciseType.getDisplayName(),
+            memberIds.size(), getAverageRating());
+    }
 }
