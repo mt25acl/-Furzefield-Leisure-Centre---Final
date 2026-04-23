@@ -11,7 +11,7 @@ public class Lesson {
     private TimeSlot timeSlot;
     private LocalDate date;
     private final int MAX_CAPACITY = 4;
-    private Set<String> memberIds;  // Store member IDs who booked
+    private Set<String> memberIds; 
     
     public Lesson(String lessonId, ExerciseType exerciseType, Day day, 
                   TimeSlot timeSlot, LocalDate date) {
@@ -26,10 +26,12 @@ public class Lesson {
     public int getMaxCapacity() { return MAX_CAPACITY; }
     public Set<String> getMemberIds() { return memberIds; }
     
-    // Getters
+    
     public String getLessonId() { return lessonId; }
     public ExerciseType getExerciseType() { return exerciseType; }
     public Day getDay() { return day; }
     public TimeSlot getTimeSlot() { return timeSlot; }
     public LocalDate getDate() { return date; }
 }
+
+
