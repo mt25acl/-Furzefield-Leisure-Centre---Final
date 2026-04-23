@@ -15,7 +15,7 @@ public class Member {
         this.bookedLessonIds = new ArrayList<>();
     }
     
-    // src/model/Member.java (add these methods)
+  
 
     public boolean bookLesson(String lessonId, Lesson lesson) {
         // Check if already booked this specific lesson
@@ -23,9 +23,7 @@ public class Member {
             return false;
         }
 
-        // Check time conflict with existing bookings
-        // This needs Lesson objects - will implement later
-        // For now just add if lesson has space
+        
         if (lesson.addBooking(this.memberId)) {
             bookedLessonIds.add(lessonId);
             return true;
@@ -42,7 +40,33 @@ public class Member {
     }
     
     
+    public boolean bookLesson(String lessonId, Lesson newLesson, List<Lesson> allLessons) {
+    if (bookedLessonIds.contains(lessonId)) {
+        return false;
+    }
+    
+    // Check time conflict
+    for (String bookedId : bookedLessonIds) {
+        for (Lesson lesson : allLessons) {
+            if (lesson.getLessonId().equals(bookedId)) {
+                if (lesson.getDate().equals(newLesson.getDate()) && 
+                    lesson.getTimeSlot() == newLesson.getTimeSlot()) {
+                    return false;  // Time conflict!
+                }
+            }
+        }
+    }
+    
+    if (newLesson.addBooking(this.memberId)) {
+        bookedLessonIds.add(lessonId);
+        return true;
+    }
+    return false;
+    }
+    
+    
     public String getMemberId() { return memberId; }
     public String getName() { return name; }
     public List<String> getBookedLessonIds() { return bookedLessonIds; }
 }
+
