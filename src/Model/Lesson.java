@@ -14,6 +14,7 @@ public class Lesson {
     private LocalDate date;
     private final int MAX_CAPACITY = 4;
     private Set<String> memberIds; 
+    private List<Review> reviews;
     
     public Lesson(String lessonId, ExerciseType exerciseType, Day day, 
                   TimeSlot timeSlot, LocalDate date) {
@@ -23,8 +24,8 @@ public class Lesson {
         this.timeSlot = timeSlot;
         this.date = date;
         this.memberIds = new HashSet<>();
+        this.reviews = new ArrayList<>();
     }
-    
     
     public boolean addBooking(String memberId) {
     if (memberIds.size() < MAX_CAPACITY && !memberIds.contains(memberId)) {
@@ -37,6 +38,23 @@ public class Lesson {
     public boolean removeBooking(String memberId) {
         return memberIds.remove(memberId);
     }
+    
+     public void addReview(Review review) {
+        reviews.add(review);
+    }
+
+    public List<Review> getReviews() {
+        return new ArrayList<>(reviews);
+    }
+
+    public double getAverageRating() {
+        if (reviews.isEmpty()) return 0.0;
+        int sum = 0;
+        for (Review r : reviews) {
+            sum += r.getRating();
+        }
+        return (double) sum / reviews.size();
+    }
 
     public int getBookingsCount() {
         return memberIds.size();
@@ -45,43 +63,6 @@ public class Lesson {
     public boolean hasSpace() {
         return memberIds.size() < MAX_CAPACITY;
     }
-    
-    
-    // src/model/Lesson.java - add reviews list
-
-private List<Review> reviews;
-
-// In constructor:
-this.reviews = new ArrayList<>();
-
-// Add methods:
-public void addReview(Review review) {
-    reviews.add(review);
-}
-
-public List<Review> getReviews() {
-    return new ArrayList<>(reviews);
-}
-
-public double getAverageRating() {
-    if (reviews.isEmpty()) return 0.0;
-    int sum = 0;
-    for (Review r : reviews) {
-        sum += r.getRating();
-    }
-    return (double) sum / reviews.size();
-}
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     public int getMaxCapacity() { return MAX_CAPACITY; }
