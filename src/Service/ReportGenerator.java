@@ -11,23 +11,10 @@ public class ReportGenerator {
         this.timetable = timetable;
     }
     
-    
-    public void printIncomeReport() {
-    System.out.println("\n=== HIGHEST INCOME BY EXERCISE TYPE ===");
-     Map<ExerciseType, Double> incomeMap = new HashMap<>();
-    
-    for (Lesson lesson : timetable.getAllLessons()) {
-        ExerciseType type = lesson.getExerciseType();
-        double lessonIncome = lesson.getBookingsCount() * getPriceForExercise(type);
-        incomeMap.put(type, incomeMap.getOrDefault(type, 0.0) + lessonIncome);
-    }
-    }
-    
-    
-    
-    
     public void printLessonReport() {
-        System.out.println("\n=== LESSON ATTENDANCE & RATING REPORT ===");
+        System.out.println("\n" + "=".repeat(70));
+        System.out.println("REPORT 1: LESSON ATTENDANCE & AVERAGE RATING");
+        System.out.println("=".repeat(70));
         
         List<Lesson> allLessons = timetable.getAllLessons();
         LocalDate currentDate = null;
@@ -35,27 +22,50 @@ public class ReportGenerator {
         for (Lesson lesson : allLessons) {
             if (!lesson.getDate().equals(currentDate)) {
                 currentDate = lesson.getDate();
-                System.out.println("\nDate: " + currentDate + " (" + lesson.getDay() + ")");
-                System.out.println("----------------------------------------");
+                System.out.println("\n📅 " + currentDate + " (" + lesson.getDay() + ")");
+                System.out.println("-".repeat(60));
             }
             
-            System.out.printf("  %s %s: %d/%d members, Avg Rating: %.1f\n",
-                lesson.getTimeSlot(), lesson.getExerciseType(),
-                lesson.getBookingsCount(), lesson.getMaxCapacity(),
+            System.out.printf("  %-8s | %-12s | Members: %d/4 | Avg Rating: %.2f/5\n",
+                lesson.getTimeSlot().getDisplayName(),
+                lesson.getExerciseType().getDisplayName(),
+                lesson.getBookingsCount(),
                 lesson.getAverageRating());
         }
     }
-
-   private double getPriceForExercise(ExerciseType type) {
-    switch(type) {
-        case YOGA: return 12.0;
-        case ZUMBA: return 10.0;
-        case AQUACISE: return 15.0;
-        case BOX_FIT: return 14.0;
-        case BODY_BLITZ: return 13.0;
-        default: return 0;
+    
+    public void printIncomeReport() {
+        System.out.println("\n" + "=".repeat(70));
+        System.out.println("REPORT 2: HIGHEST INCOME BY EXERCISE TYPE");
+        System.out.println("=".repeat(70));
+        
+        Map<ExerciseType, Double> incomeMap = new HashMap<>();
+        
+        for (Lesson lesson : timetable.getAllLessons()) {
+            ExerciseType type = lesson.getExerciseType();
+            double lessonIncome = lesson.getBookingsCount() * type.getPrice();
+            incomeMap.put(type, incomeMap.getOrDefault(type, 0.0) + lessonIncome);
+        }
+        
+        ExerciseType topType = null;
+        double topIncome = 0;
+        
+        System.out.println("\n📊 All Exercises Total Income:");
+        System.out.println("-".repeat(40));
+        
+        for (Map.Entry<ExerciseType, Double> entry : incomeMap.entrySet()) {
+            System.out.printf("  %-12s: £%.2f\n", 
+                entry.getKey().getDisplayName(), entry.getValue());
+            if (entry.getValue() > topIncome) {
+                topIncome = entry.getValue();
+                topType = entry.getKey();
+            }
+        }
+        
+        if (topType != null) {
+            System.out.println("\n🏆 WINNER: " + topType.getDisplayName());
+            System.out.println("   Total Income: £" + String.format("%.2f", topIncome));
+            System.out.println("   Price per lesson: £" + String.format("%.2f", topType.getPrice()));
+        }
     }
-    
-   }
-    
 }
