@@ -16,10 +16,10 @@ public class Main {
         System.out.println("     GROUP EXERCISE BOOKING SYSTEM");
         System.out.println("================================================");
         
-        // Initialize system
+        
         initializeSystem();
         
-        // Main menu loop
+        
         while (true) {
             displayMainMenu();
             int choice = getIntInput("Enter choice: ");
@@ -455,7 +455,7 @@ public class Main {
             scanner.next();
         }
         int result = scanner.nextInt();
-        scanner.nextLine(); // consume newline
+        scanner.nextLine();
         return result;
     }
 }

@@ -30,7 +30,7 @@ public void createSampleReviews() {
         for (String lessonId : member.getBookedLessonIds()) {
             if (reviewCount >= 20) break;
             
-            // 70% chance to review
+          
             if (random.nextDouble() < 0.7) {
                 bookingSystem.markAttendance(member.getMemberId(), lessonId);
                 int rating = random.nextInt(5) + 1;

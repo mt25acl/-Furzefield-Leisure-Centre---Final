@@ -57,7 +57,8 @@ public class Lesson {
         return (double) sum / reviews.size();
     }
     
-    // Getters
+
+    
     public String getLessonId() { return lessonId; }
     public ExerciseType getExerciseType() { return exerciseType; }
     public Day getDay() { return day; }

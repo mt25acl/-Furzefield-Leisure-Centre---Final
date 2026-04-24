@@ -46,7 +46,7 @@ import java.time.LocalDate;
     
     
     public void generateTimetable(int numberOfWeekends, List<ExerciseType> exerciseTypes) {
-    LocalDate startDate = LocalDate.of(2026, 4, 25); // First Saturday
+    LocalDate startDate = LocalDate.of(2026, 4, 25); 
     
     for (int w = 0; w < numberOfWeekends; w++) {
         LocalDate saturday = startDate.plusWeeks(w);

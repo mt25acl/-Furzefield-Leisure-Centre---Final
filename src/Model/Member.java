@@ -20,7 +20,7 @@ public class Member {
             return false;
         }
         
-        // Check time conflict
+        
         for (String bookedId : bookedLessonIds) {
             for (Lesson lesson : allLessons) {
                 if (lesson != null && lesson.getLessonId().equals(bookedId)) {
@@ -53,7 +53,7 @@ public class Member {
             if (bookLesson(newLessonId, newLesson, allLessons)) {
                 return true;
             }
-            // Rollback
+            
             oldLesson.addBooking(this.memberId);
             bookedLessonIds.add(oldLessonId);
             return false;
@@ -74,7 +74,7 @@ public class Member {
         }
     }
     
-    // ========== GETTER METHODS ==========
+    
     public String getMemberId() { 
         return memberId; 
     }
