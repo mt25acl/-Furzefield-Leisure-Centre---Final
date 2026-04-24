@@ -1,10 +1,31 @@
 package model;
 
-public enum Day {
-    SATURDAY,
-    SUNDAY;
+import java.util.ArrayList;
+import java.util.List;
 
-    public static Object getLessons() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+public enum Day {
+    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;
+
+    private List<Lesson> lessons = new ArrayList<>();
+
+    public String getDayName() {
+        return this.name();
+    }
+
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void addLesson(Lesson lesson) {
+        lessons.add(lesson);
+    }
+
+    public void setDayName(String name) {
+        // Enums can't rename — this is intentionally unsupported
+        throw new UnsupportedOperationException("Cannot rename an enum constant.");
+    }
+
+    public void clearLessons() {
+        lessons.clear();
     }
 }

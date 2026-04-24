@@ -12,9 +12,8 @@ public class Lesson {
     private final int MAX_CAPACITY = 4;
     private Set<String> memberIds;
     private List<Review> reviews;
-    
-    public Lesson(String lessonId, ExerciseType exerciseType, Day day, 
-                  TimeSlot timeSlot, LocalDate date) {
+
+    public Lesson(String lessonId, ExerciseType exerciseType, Day day, TimeSlot timeSlot, LocalDate date) {
         this.lessonId = lessonId;
         this.exerciseType = exerciseType;
         this.day = day;
@@ -23,7 +22,7 @@ public class Lesson {
         this.memberIds = new HashSet<>();
         this.reviews = new ArrayList<>();
     }
-    
+
     public boolean addBooking(String memberId) {
         if (memberIds.size() < MAX_CAPACITY && !memberIds.contains(memberId)) {
             memberIds.add(memberId);
@@ -31,23 +30,23 @@ public class Lesson {
         }
         return false;
     }
-    
+
     public boolean removeBooking(String memberId) {
         return memberIds.remove(memberId);
     }
-    
+
     public void addReview(Review review) {
         reviews.add(review);
     }
-    
+
     public int getBookingsCount() {
         return memberIds.size();
     }
-    
+
     public boolean hasSpace() {
         return memberIds.size() < MAX_CAPACITY;
     }
-    
+
     public double getAverageRating() {
         if (reviews.isEmpty()) return 0.0;
         int sum = 0;
@@ -56,9 +55,7 @@ public class Lesson {
         }
         return (double) sum / reviews.size();
     }
-    
 
-    
     public String getLessonId() { return lessonId; }
     public ExerciseType getExerciseType() { return exerciseType; }
     public Day getDay() { return day; }
@@ -67,7 +64,7 @@ public class Lesson {
     public int getMaxCapacity() { return MAX_CAPACITY; }
     public Set<String> getMemberIds() { return new HashSet<>(memberIds); }
     public List<Review> getReviews() { return new ArrayList<>(reviews); }
-    
+
     @Override
     public String toString() {
         return String.format("%s %s %s: %d/4 booked, rating: %.1f",
